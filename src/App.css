@@ -1,0 +1,41 @@
+@keyframes card-anim {
+  from {
+    transform: translateY(12px);
+  }
+  to {
+    transform: translateY(0px);
+  }
+}
+
+.card {
+  animation-name: card-anim;
+  animation-duration: 250ms;
+  animation-timing-function: ease-out;
+}
+
+.cardlist {
+  flex-wrap: wrap;
+}
+
+.columns {
+  justify-content: center;
+}
+
+.large-spinner::after {
+  width: 32px !important;
+  height: 32px !important;
+}
+
+.terf-card {
+  width: 256px;
+  height: 256px;
+  overflow: hidden;
+}
+
+.terf-img {
+  transition-duration: 200ms;
+}
+
+.terf-img:hover {
+  transform: scale(1.2, 1.2, 1.2);
+}
