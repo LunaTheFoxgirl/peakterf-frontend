@@ -11,10 +11,17 @@ class CardList extends React.Component {
             isAtEnd: false,
             items: []
         }
+
+        this.onScroll = this.onScroll.bind(this);
     }
 
     componentDidMount() {
         this.update();
+        document.addEventListener("scroll", this.onScroll, false);
+    }
+
+    componentWillUnmount() {
+        document.removeEventListener("scroll", this.onScroll, false);
     }
 
     joinFilters(filters) {
@@ -24,6 +31,16 @@ class CardList extends React.Component {
     
     addPageNum(pg) {
         return "page="+pg.toString()
+    }
+
+    onScroll = () => {
+        if (this.hasReachedBottom()) {
+            this.update();
+        }
+    }
+
+    hasReachedBottom() {
+        return document.body.offsetHeight + Math.ceil(document.body.scrollTop) === document.body.scrollHeight;
     }
 
     update(ignoreAtEnd = false) {
@@ -76,7 +93,7 @@ class CardList extends React.Component {
                     <div class="columns">
                         {
                             this.state.items.map((item) => (
-                                <ImageCard img={item.img}/>
+                                <ImageCard img={"http://localhost:8080"+item.img}/>
                             ))
                         }
                     </div>
