@@ -11,7 +11,7 @@ class CatalogPage extends React.Component {
                 { id: "Reddit", filter: "reddit", active: false },
                 { id: "Facebook", filter: "facebook", active: false },
                 { id: "Tumblr", filter: "tumblr", active: false },
-                { id: "Other", filter: "other", active: false }
+                { id: "Other", filter: "other", active: false },
             ],
             calculatedFilters: []
         }
@@ -46,7 +46,7 @@ class CatalogPage extends React.Component {
 
         // Log filters
         this.setState({ selectedFilters: filters, calculatedFilters: calculated }, () => {
-            this.cardList.current.update(true);
+            this.cardList.current.update(true, true);
         });
     }
 
@@ -56,13 +56,13 @@ class CatalogPage extends React.Component {
 
     render() {
         return (
-            <div>
+            <div class="catalog">
                 <div class="container bg-white">
                     <div class="columns py-2">
                         <h2>Catalog</h2>
                     </div>
                     <div class="columns">
-                        <div class="column col-4 py-2">
+                        <div class="column col-auto py-2">
                             <div class="btn-group btn-group-block">
                                 {
                                     this.state.selectedFilters.map((item) =>

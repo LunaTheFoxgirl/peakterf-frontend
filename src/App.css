@@ -39,3 +39,11 @@
 .terf-img:hover {
   transform: scale(1.2, 1.2, 1.2);
 }
+
+.modal.modal-lg .modal-overlay {
+  background: #00000088 !important;
+}
+
+.empty {
+  background-color: rgb(245, 245, 245) !important;
+}

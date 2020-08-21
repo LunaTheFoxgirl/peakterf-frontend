@@ -24,6 +24,15 @@ class CardList extends React.Component {
         document.removeEventListener("scroll", this.onScroll, false);
     }
 
+    addKeysToArray(startIndex, arr) {
+
+        // For every index in the array add the key
+        for(var i = 0; i < arr.length; i++) {
+            arr[i].key = startIndex+i;
+        }
+        return arr;
+    }
+
     joinFilters(filters) {
         if (filters.length == 0) return "";
         return "&tags=[\""+filters.join("\",\"")+"\"]";
@@ -39,11 +48,15 @@ class CardList extends React.Component {
         }
     }
 
+    hasKey(key) {
+        return key >= 0 && key < this.state.items.length;
+    }
+
     hasReachedBottom() {
         return document.body.offsetHeight + Math.ceil(document.body.scrollTop) === document.body.scrollHeight;
     }
 
-    update(ignoreAtEnd = false) {
+    update(ignoreAtEnd = false, wipe = false) {
         // We can't update anymore if we're at the end
         if (!ignoreAtEnd && this.state.isAtEnd) return;
 
@@ -60,14 +73,26 @@ class CardList extends React.Component {
         // Build request URL
         var reqUrl = "http://localhost:8080/api/v1/posts?" + pageNum + this.joinFilters(filters);
 
+        // Time out after 10 seconds
+        const controller = new AbortController();
+        setTimeout(() => { controller.abort() }, 10000);
+
         // Fetch images from API
-        fetch(reqUrl)
+        fetch(reqUrl, {signal: controller.signal})
         .then(res => res.json())
         .then((res) => {
-            this.setState({items: res, isLoading: false, isEmpty: res.length == 0, isAtEnd: res.length != 20});
+
+            // Add new items to the end of the current items
+            var newItems = this.state.items
+            if (wipe) {
+                newItems = [];
+            }
+            newItems.push(...this.addKeysToArray(newItems.length, res));
+            this.setState({items: newItems, isLoading: false, isEmpty: res.length == 0, isAtEnd: res.length != 20});
         },
         (error) => {
             console.log("error fetching data: ", error);
+            this.setState({isLoading: false, isEmpty: true});
         });
     }
 

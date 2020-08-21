@@ -1,6 +1,6 @@
 import React from 'react';
 
-class ImageCard extends React.Component {
+class ImageModal extends React.Component {
     constructor(props) {
         super(props);
 
@@ -20,7 +20,7 @@ class ImageCard extends React.Component {
     render() {
         return (
             <div class="card terf-card col-3 mx-1 my-1">
-                <div class="c-hand card-image">
+                <div class="card-image">
                     <img class="img-responsive terf-img" onClick={() => this.showModal()} src={this.props.img} />
                 </div>
 
@@ -29,7 +29,7 @@ class ImageCard extends React.Component {
                     <div class="modal-container">
                         <div class="modal-body">
                             <div class="content">
-                                <img src={this.props.img} class="img-responsive"/>
+                                <img class="img-responsive" src={this.props.img} />
                             </div>
                         </div>
                     </div>
@@ -39,4 +39,4 @@ class ImageCard extends React.Component {
     }
 }
 
-export default ImageCard;
+export default ImageModal;
