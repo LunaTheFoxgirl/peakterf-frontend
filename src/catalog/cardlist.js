@@ -71,7 +71,7 @@ class CardList extends React.Component {
         var pageNum = this.addPageNum(nextPage);
 
         // Build request URL
-        var reqUrl = "http://localhost:8080/api/v1/posts?" + pageNum + this.joinFilters(filters);
+        var reqUrl = "https://api.peakterf.com/api/v1/posts?" + pageNum + this.joinFilters(filters);
 
         // Time out after 10 seconds
         const controller = new AbortController();
@@ -118,7 +118,7 @@ class CardList extends React.Component {
                     <div class="columns">
                         {
                             this.state.items.map((item) => (
-                                <ImageCard img={"http://localhost:8080"+item.img}/>
+                                <ImageCard img={"http://cdn.peakterf.com"+item.img}/>
                             ))
                         }
                     </div>
