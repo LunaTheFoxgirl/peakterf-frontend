@@ -9,7 +9,8 @@ class CardList extends React.Component {
             isLoading: true,
             isEmpty: true,
             isAtEnd: false,
-            items: []
+            items: [],
+            isRunningUpdater: false
         }
 
         this.onScroll = this.onScroll.bind(this);
@@ -58,13 +59,15 @@ class CardList extends React.Component {
 
     update(ignoreAtEnd = false, wipe = false) {
         // We can't update anymore if we're at the end
-        if (!ignoreAtEnd && this.state.isAtEnd) return;
+        // Also skip updates if we're already loading
+        if ((!ignoreAtEnd && this.state.isAtEnd) || this.state.isRunningUpdater) return;
 
         // The next page to fetch
         var nextPage = wipe ? 0 : Math.round(this.state.items.length/20);
         
         // Make sure loading spinner shows when we are loading
         this.setState({isLoading: true});
+        this.setState({isRunningUpdater: true});
 
         // Get filters and page number query parameters
         var filters = this.props.filters();
@@ -89,11 +92,12 @@ class CardList extends React.Component {
             }
             newItems.push(...this.addKeysToArray(newItems.length, res));
 
-            //console.log(newItems);
             this.setState({items: newItems, isLoading: false, isEmpty: res.length == 0, isAtEnd: res.length != 20}, () => {
-                if (this.hasReachedBottom()) {
-                    this.update();
-                }
+                this.setState({isRunningUpdater: false}, () => {
+                    if (this.hasReachedBottom()) {
+                        this.update();
+                    }
+                });
             });
         },
         (error) => {
