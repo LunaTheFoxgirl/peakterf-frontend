@@ -46,11 +46,28 @@ class SubmitPage extends React.Component {
                                 </p>
 
                                 <div class="card-title h5">Submission Rules</div>
-                                <ul>
-                                    <li>The person must be a TERF, not a regular transphobe</li>
-                                    <li>Submission must contain a threat or a wish/intention to harm</li>
-                                </ul>
-                                <small>for examples you can look at the catalog <br />See link buttons above <br />Clicking email icon will copy the address</small>
+                                <p>
+                                    <ul>
+                                        <li>The person must be a TERF, not a regular transphobe</li>
+                                        <li>Submission must contain a threat or a wish/intention to harm</li>
+                                    </ul>
+                                    <small>for examples you can look at the catalog <br />See link buttons above <br />Clicking email icon will copy the address</small>
+                                </p>
+
+                                <p>
+                                    <div class="card-title h5">Homophobia and other TERF nonsense</div>
+                                    <p>
+                                        The following other sites and social media accounts document other TERF nonsense like homophobia.
+                                        <br />
+                                        Please submit stuff unrelated to transphobic hate/abuse to these platforms instead.
+                                    </p>
+
+                                    <ul>
+                                        <li><a href="https://twitter.com/GcHomophobia">GC Homophobia</a></li>
+                                    </ul>
+                                    <small>These sites are not affiliated with Peak TERF.</small>
+                                </p>
+
                             </div>
                         </div>
                     </div>

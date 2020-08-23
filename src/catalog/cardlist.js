@@ -52,15 +52,6 @@ class CardList extends React.Component {
         return key >= 0 && key < this.state.items.length;
     }
 
-    getDocHeight() {
-        var D = document;
-        return Math.max(
-            D.body.scrollHeight, D.documentElement.scrollHeight,
-            D.body.offsetHeight, D.documentElement.offsetHeight,
-            D.body.clientHeight, D.documentElement.clientHeight
-        );
-    }
-
     hasReachedBottom() {
         return (window.innerHeight + window.scrollY) >= document.body.offsetHeight-32;
     }
@@ -99,11 +90,11 @@ class CardList extends React.Component {
             newItems.push(...this.addKeysToArray(newItems.length, res));
 
             //console.log(newItems);
-            this.setState({items: newItems, isLoading: false, isEmpty: res.length == 0, isAtEnd: res.length != 20});
-            
-            if (this.hasReachedBottom()) {
-                this.update();
-            }
+            this.setState({items: newItems, isLoading: false, isEmpty: res.length == 0, isAtEnd: res.length != 20}, () => {
+                if (this.hasReachedBottom()) {
+                    this.update();
+                }
+            });
         },
         (error) => {
             console.log("error fetching data: ", error);
