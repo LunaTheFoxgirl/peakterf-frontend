@@ -19,7 +19,7 @@ class AboutPage extends React.Component {
                                 <p class="text-bold">We do not condone the harassment of anyone shown and documented on this website.</p>
                             </div>
                             <div class="card-image">
-                                <img alt="Trans flag" src="https://peakterf.com/wp-content/uploads/2020/08/del-1024x576.jpg" class="img-responsive" />
+                                <img alt="Trans flag" src="/trans-rights.jpg" class="img-responsive" />
                             </div>
                         </div>
                         <div class="card my-2">
