@@ -118,7 +118,7 @@ class CardList extends React.Component {
                     <div class="columns">
                         {
                             this.state.items.map((item) => (
-                                <ImageCard img={"http://cdn.peakterf.com"+item.img}/>
+                                <ImageCard img={item.img}/>
                             ))
                         }
                     </div>
