@@ -41,7 +41,7 @@ class CardList extends React.Component {
     addPageNum(pg) {
         return "page="+pg.toString()
     }
-
+    
     onScroll = () => {
         if (this.hasReachedBottom()) {
             this.update();
@@ -52,8 +52,17 @@ class CardList extends React.Component {
         return key >= 0 && key < this.state.items.length;
     }
 
+    getDocHeight() {
+        var D = document;
+        return Math.max(
+            D.body.scrollHeight, D.documentElement.scrollHeight,
+            D.body.offsetHeight, D.documentElement.offsetHeight,
+            D.body.clientHeight, D.documentElement.clientHeight
+        );
+    }
+
     hasReachedBottom() {
-        return document.body.offsetHeight + Math.ceil(document.body.scrollTop) === document.body.scrollHeight;
+        return (window.innerHeight + window.scrollY) >= document.body.offsetHeight-32;
     }
 
     update(ignoreAtEnd = false, wipe = false) {
@@ -61,7 +70,7 @@ class CardList extends React.Component {
         if (!ignoreAtEnd && this.state.isAtEnd) return;
 
         // The next page to fetch
-        var nextPage = Math.round(this.state.items.length/20);
+        var nextPage = wipe ? 0 : Math.round(this.state.items.length/20);
         
         // Make sure loading spinner shows when we are loading
         this.setState({isLoading: true});
@@ -88,7 +97,13 @@ class CardList extends React.Component {
                 newItems = [];
             }
             newItems.push(...this.addKeysToArray(newItems.length, res));
+
+            //console.log(newItems);
             this.setState({items: newItems, isLoading: false, isEmpty: res.length == 0, isAtEnd: res.length != 20});
+            
+            if (this.hasReachedBottom()) {
+                this.update();
+            }
         },
         (error) => {
             console.log("error fetching data: ", error);
@@ -100,12 +115,7 @@ class CardList extends React.Component {
         const { isLoading, isEmpty } = this.state;
         var renderData;
 
-        if (isLoading) {
-            renderData = (
-                <div class="loading large-spinner">
-                </div>
-            )
-        } else if (isEmpty) {
+        if (isEmpty) {
             renderData = (
                 <div class="empty">
                     <p class="empty-title h5">Could not find any images</p>
@@ -118,10 +128,14 @@ class CardList extends React.Component {
                     <div class="columns">
                         {
                             this.state.items.map((item) => (
-                                <ImageCard img={item.img}/>
+                                <ImageCard img={item.img} alt={item.alt} />
                             ))
                         }
                     </div>
+                    {isLoading && 
+                        <div class="loading large-spinner">
+                        </div>
+                    }
                 </div>
             )
         }

@@ -21,7 +21,7 @@ class ImageCard extends React.Component {
         return (
             <div class="card terf-card col-3 mx-1 my-1">
                 <div class="c-hand card-image">
-                    <img class="img-responsive terf-img" onClick={() => this.showModal()} src={this.props.img} />
+                    <img class="img-responsive terf-img" onClick={() => this.showModal()} src={this.props.img} alt={this.props.alt} />
                 </div>
 
                 <div className={"modal modal-lg "+(this.state.showModal ? "active" : "")}>
@@ -29,7 +29,7 @@ class ImageCard extends React.Component {
                     <div class="modal-container">
                         <div class="modal-body">
                             <div class="content">
-                                <img src={this.props.img} class="img-responsive"/>
+                                <img src={this.props.img} alt={this.props.alt} class="img-responsive"/>
                             </div>
                         </div>
                     </div>
