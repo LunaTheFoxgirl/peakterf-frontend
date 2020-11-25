@@ -30,7 +30,7 @@ class SubmitPage extends React.Component {
                                 <p>Submissions can be sent to us through the following channels</p>
                                 <p>
                                     <a href="https://twitter.com/peakTERF" class="fab fa-twitter fa-2x btn btn-link"></a>
-                                    <a href="https://discord.com/invite/kX2MwcK" class="fab fa-discord fa-2x btn btn-link"></a>
+                                    <a href="https://discord.gg/52GYafWbMh" class="fab fa-discord fa-2x btn btn-link"></a>
                                     <div class="popover popover-right">
                                         <a onClick={this.copyEmail} class="fas fa-envelope fa-2x btn btn-link"></a>
                                         {
